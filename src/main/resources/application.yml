@@ -12,18 +12,29 @@ spring:
       url: jdbc:mysql://39.104.165.155:3306/BUPT_IOT?characterEncoding=UTF-8   #jdbc:mysql://localhost:3306/dbgirl_test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
       username: root
       password: root
+      cachePrepStmts: true  # 开启二级缓存
 
   redis:
-          database:  0
-          host:  127.0.0.1
-          port:  6379
-          password:
-          pool:
-             max-active: 8
-             max-wait: -1
-             max-idle: 8
-             min-idle: 0
-          timeout: 0
+      database:  0
+      host:  127.0.0.1
+      port:  6379
+      password:
+      pool:
+         max-active: 8
+         max-wait: -1
+         max-idle: 8
+         min-idle: 0
+      timeout: 0
+
+  kafka:
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      bootstrap-servers: 172.30.26.7:9092,172.30.24.9:9092,172.30.26.10:9092  # k8s
+      bootstrap-servers: 172.30.26.6:9092  # 阿里云
 
 mybatis:
   configuration:

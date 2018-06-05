@@ -18,7 +18,7 @@ public interface UpdateMessageMapper {
     List<UpdateMessage> getMessageByType(@Param("messageType")String messageType);
 
     @Select("SELECT * FROM update_message where id = #{id}")
-    UpdateMessage getMessageById(@Param("id")Integer id );
+    UpdateMessage getMessageById(@Param("id") Integer id );
 
     @Delete("DELETE FROM update_message")
     void removeAllMessage();
