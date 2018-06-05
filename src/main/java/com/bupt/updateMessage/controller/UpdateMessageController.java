@@ -1,15 +1,14 @@
 package com.bupt.updateMessage.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.bupt.updateMessage.data.UpdateMessage;
 import com.bupt.updateMessage.service.UpdateMessageService;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -22,9 +21,16 @@ public class UpdateMessageController {
     @RequestMapping(value = "/updateMessage/insert", method = RequestMethod.POST)
     public UpdateMessage insertMessage(@RequestBody String msg){
 
-        UpdateMessage msg1 = JSON.parseObject(msg, UpdateMessage.class);
-        UpdateMessage insertmsg = updateMessageService.insertMessage(msg1);
+        JsonObject jsonObj = (JsonObject)new JsonParser().parse(msg);
+        UpdateMessage addMsg = new UpdateMessage(jsonObj);
+        UpdateMessage insertmsg = updateMessageService.insertMessage(addMsg);
         return insertmsg;
+    }
+
+    @RequestMapping(value = "/updateMesage/{messageType}", method = RequestMethod.GET)
+    public List<UpdateMessage> getUpdateMessageByType(@PathVariable("messageType") String msgType){
+        List<UpdateMessage> updateMessages = updateMessageService.getUpdateMessageByType(msgType);
+        return updateMessages;
     }
 
 }
