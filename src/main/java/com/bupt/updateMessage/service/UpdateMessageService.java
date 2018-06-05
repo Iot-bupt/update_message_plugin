@@ -16,7 +16,7 @@ public class UpdateMessageService {
     @Autowired
     UpdateMessageMapper updateMessageMapper;
 
-    @CachePut(key = "#p0.id"+"#p1.messageType")
+    @CachePut(key = "#id+#messageType")
     public UpdateMessage insertMessage(UpdateMessage updateMessage){
         int id = this.updateMessageMapper.addAMessage(updateMessage);
         return this.updateMessageMapper.getMessageById(id);
