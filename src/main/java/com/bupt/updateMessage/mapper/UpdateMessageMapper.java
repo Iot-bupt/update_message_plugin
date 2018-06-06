@@ -23,9 +23,9 @@ public interface UpdateMessageMapper {
     @Delete("DELETE FROM update_message")
     void removeAllMessage();
 
-    @Select("SELECT * FROM update_message where messageType = 'fromWeb' order by id")
+    @Select("SELECT * FROM update_message where messageType = 'fromWeb' ORDER BY id LIMIT 20")
     List<UpdateMessage> getFromWebMessage();
 
-    @Select("SELECT * FROM update_message where messageType = 'fromModule' order by id")
+    @Select("SELECT * FROM update_message where messageType = 'fromModule' ORDER BY id LIMIT 20")
     List<UpdateMessage> getFromModuleMessage();
 }
