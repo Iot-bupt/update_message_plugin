@@ -7,8 +7,12 @@
 
     // 开启socket连接
     function connect() {
+
+
         var socket = new SockJS('/updateMessage');
         stompClient = Stomp.over(socket);
+
+
         stompClient.connect(
             {}
             , function () {

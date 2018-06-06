@@ -27,10 +27,10 @@ public interface UpdateMessageMapper {
     @Delete("DELETE FROM update_message WHERE id = #{id}")
     void removeMessageById(@Param("id") Integer id);
 
-    @Select("SELECT * FROM update_message WHERE messageType = 'fromWeb' ORDER BY id LIMIT 20")
+    @Select("SELECT * FROM update_message WHERE messageType = 'fromWeb' ORDER BY id DESC LIMIT 20")
     List<UpdateMessage> getFromWebMessage();
 
-    @Select("SELECT * FROM update_message WHERE messageType = 'fromModule' ORDER BY id LIMIT 20")
+    @Select("SELECT * FROM update_message WHERE messageType = 'fromModule' ORDER BY id DESC LIMIT 20")
     List<UpdateMessage> getFromModuleMessage();
 
     @Select("SELECT * FROM update_message WHERE ts BETWEEN #{startTs} AND #{endTs}")
