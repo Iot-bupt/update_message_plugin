@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Slf4j
@@ -45,6 +46,10 @@ public class UpdateMessageService {
         return this.updateMessageMapper.getFromModuleMessage();
     }
 
+    public List<UpdateMessage> getTsMessage(BigInteger startTs, BigInteger endTs){
+        return this.updateMessageMapper.getTsMessage(startTs, endTs);
+    }
+
     public UpdateMessage getMessageById(int id){
         return this.updateMessageMapper.getMessageById(id);
     }
@@ -52,6 +57,11 @@ public class UpdateMessageService {
     public void removeAllMessage(){
         this.updateMessageMapper.removeAllMessage();
     }
+
+    public void removeMessageById(int id){
+        this.updateMessageMapper.removeMessageById(id);
+    }
+
 
     public boolean checkMessageType(UpdateMessage updateMessage){
         if(updateMessage.getMessageType().equals("fromModule")){

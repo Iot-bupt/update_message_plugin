@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -66,9 +67,21 @@ public class UpdateMessageController {
         return updateMessage;
     }
 
+    @RequestMapping(value = "/updateMessage/{startTs}/{endTs}", method = RequestMethod.GET)
+    public List<UpdateMessage> getTsMessage(@PathVariable("startTs") BigInteger startTs,
+                                              @PathVariable("endTs") BigInteger endTs){
+        List<UpdateMessage> updateMessages = updateMessageService.getTsMessage(startTs, endTs);
+        return updateMessages;
+    }
+
     @RequestMapping(value = "/removeAllMessage", method = RequestMethod.DELETE)
     public void removeAllMessage(){
         updateMessageService.removeAllMessage();
+    }
+
+    @RequestMapping(value = "/removeMessage/{id}", method = RequestMethod.DELETE)
+    public void removeMessageById(@PathVariable("id") Integer id){
+        updateMessageService.removeMessageById(id);
     }
 
 }
