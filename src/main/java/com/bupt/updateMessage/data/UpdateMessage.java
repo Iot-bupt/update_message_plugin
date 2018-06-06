@@ -3,11 +3,10 @@ package com.bupt.updateMessage.data;
 import com.google.gson.JsonObject;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
 @Data
-public class UpdateMessage implements Serializable{
+public class UpdateMessage {
     private Integer id;
     private String message;
     private String messageType;
