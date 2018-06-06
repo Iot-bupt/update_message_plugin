@@ -2,12 +2,15 @@ package com.bupt.updateMessage.controller;
 
 
 import com.bupt.updateMessage.KafkaProducer.KafkaProducer;
+import com.bupt.updateMessage.common.Constant;
 import com.bupt.updateMessage.data.UpdateMessage;
 import com.bupt.updateMessage.service.CheckAndSendMessage;
 import com.bupt.updateMessage.service.UpdateMessageService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -26,6 +29,9 @@ public class UpdateMessageController {
 
     @Autowired
     CheckAndSendMessage checkAndSendMessage;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate ;
 
     @RequestMapping(value = "/updateMessage/insert", method = RequestMethod.POST)
     public String insertMessage(@RequestBody String msg){
@@ -84,6 +90,24 @@ public class UpdateMessageController {
     @RequestMapping(value = "/removeMessage/{id}", method = RequestMethod.DELETE)
     public void removeMessageById(@PathVariable("id") Integer id){
         updateMessageService.removeMessageById(id);
+    }
+
+    @MessageMapping("/fromModule")
+    public void getFromModuleMsgBySocket(){
+        List<UpdateMessage> updateMessages = updateMessageService.getFromModuleMessage();
+       /* for(UpdateMessage updateMessage:updateMessages){
+            simpMessagingTemplate.convertAndSend(Constant.SOCKET_UPDATEMESSAGE_RESPONSE+"/fromModule", updateMessage);
+        }*/
+        simpMessagingTemplate.convertAndSend(Constant.SOCKET_UPDATEMESSAGE_RESPONSE+"/fromModule", updateMessages);
+    }
+
+    @MessageMapping("/fromWeb")
+    public void getFromWebMsgBySocket(){
+        List<UpdateMessage> updateMessages = updateMessageService.getFromWebMessage();
+       /* for(UpdateMessage updateMessage:updateMessages){
+            simpMessagingTemplate.convertAndSend(Constant.SOCKET_UPDATEMESSAGE_RESPONSE+"/fromModule", updateMessage);
+        }*/
+        simpMessagingTemplate.convertAndSend(Constant.SOCKET_UPDATEMESSAGE_RESPONSE+"/fromWeb", updateMessages);
     }
 
 }

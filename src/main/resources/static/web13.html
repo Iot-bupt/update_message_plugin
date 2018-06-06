@@ -14,9 +14,9 @@
             , function () {
             alert("Connected!") ;
             alert("begin to send") ;
-            //stompClient.send("/plugins/metrics/details", {}, "10.108.227.216:8300") ;
+            stompClient.send("/plugins/updateMessage/fromModule", {}) ;
 
-            var res = stompClient.subscribe("/plugins/updateMessage/response/fromWeb", function(frame){
+            var res = stompClient.subscribe("/plugins/updateMessage/response/fromModule", function(frame){
                 alert(frame) ;
             }) ;
             alert(res) ;
