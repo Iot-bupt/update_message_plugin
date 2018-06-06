@@ -30,7 +30,27 @@ public class UpdateMessageService {
 
     //@Cacheable(value = "messageCache", key = "#messageType")
     public List<UpdateMessage> getUpdateMessageByType(String messageType){
-        return null;
+        return this.updateMessageMapper.getMessageByType(messageType);
+    }
+
+    public List<UpdateMessage> getAllMessage(){
+        return this.updateMessageMapper.getAllMessage();
+    }
+
+    public List<UpdateMessage> getFromWebMessage(){
+        return this.updateMessageMapper.getFromWebMessage();
+    }
+
+    public List<UpdateMessage> getFromModuleMessage(){
+        return this.updateMessageMapper.getFromModuleMessage();
+    }
+
+    public UpdateMessage getMessageById(int id){
+        return this.updateMessageMapper.getMessageById(id);
+    }
+
+    public void removeAllMessage(){
+        this.updateMessageMapper.removeAllMessage();
     }
 
     public boolean checkMessageType(UpdateMessage updateMessage){

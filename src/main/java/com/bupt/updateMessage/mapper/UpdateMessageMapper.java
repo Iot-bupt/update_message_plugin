@@ -22,4 +22,10 @@ public interface UpdateMessageMapper {
 
     @Delete("DELETE FROM update_message")
     void removeAllMessage();
+
+    @Select("SELECT * FROM update_message where messageType = 'fromWeb' order by id")
+    List<UpdateMessage> getFromWebMessage();
+
+    @Select("SELECT * FROM update_message where messageType = 'fromModule' order by id")
+    List<UpdateMessage> getFromModuleMessage();
 }

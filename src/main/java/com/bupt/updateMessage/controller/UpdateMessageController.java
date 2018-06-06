@@ -42,4 +42,33 @@ public class UpdateMessageController {
         return updateMessages;
     }
 
+    @RequestMapping(value = "/updateMessage/fromWeb", method = RequestMethod.GET)
+    public List<UpdateMessage> getFromWebMessage(){
+        List<UpdateMessage> updateMessages = updateMessageService.getFromWebMessage();
+        return updateMessages;
+    }
+
+    @RequestMapping(value = "/updateMessage/fromModule", method = RequestMethod.GET)
+    public List<UpdateMessage> getFromModuleMessage(){
+        List<UpdateMessage> updateMessages = updateMessageService.getFromModuleMessage();
+        return updateMessages;
+    }
+
+    @RequestMapping(value = "/allUpdateMessage", method = RequestMethod.GET)
+    public List<UpdateMessage> getAllMessage(){
+        List<UpdateMessage> updateMessages = updateMessageService.getAllMessage();
+        return updateMessages;
+    }
+
+    @RequestMapping(value = "/updateMessage/{id}", method = RequestMethod.GET)
+    public UpdateMessage getMessageById(@PathVariable("id") Integer id){
+        UpdateMessage updateMessage = updateMessageService.getMessageById(id);
+        return updateMessage;
+    }
+
+    @RequestMapping(value = "/removeAllMessage", method = RequestMethod.DELETE)
+    public void removeAllMessage(){
+        updateMessageService.removeAllMessage();
+    }
+
 }
