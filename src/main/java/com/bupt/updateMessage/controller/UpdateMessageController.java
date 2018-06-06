@@ -3,6 +3,7 @@ package com.bupt.updateMessage.controller;
 
 import com.bupt.updateMessage.KafkaProducer.KafkaProducer;
 import com.bupt.updateMessage.data.UpdateMessage;
+import com.bupt.updateMessage.service.CheckAndSendMessage;
 import com.bupt.updateMessage.service.UpdateMessageService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -22,6 +23,9 @@ public class UpdateMessageController {
     @Autowired
     KafkaProducer kafkaProducer;
 
+    @Autowired
+    CheckAndSendMessage checkAndSendMessage;
+
     @RequestMapping(value = "/updateMessage/insert", method = RequestMethod.POST)
     public String insertMessage(@RequestBody String msg){
 
@@ -29,9 +33,7 @@ public class UpdateMessageController {
         UpdateMessage addMsg = new UpdateMessage(jsonObj);
         UpdateMessage insertmsg = updateMessageService.insertMessage(addMsg);
 
-        if(updateMessageService.checkMessageType(insertmsg)) {
-            kafkaProducer.kafkaProduce(insertmsg);
-        }
+        checkAndSendMessage.checkAndSendMessage(insertmsg);
 
         return "success";
     }
