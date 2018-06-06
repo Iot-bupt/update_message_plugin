@@ -34,7 +34,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      bootstrap-servers: 172.30.26.7:9092,172.30.24.9:9092,172.30.26.10:9092  # k8s
-      bootstrap-servers: 172.30.26.6:9092  # 阿里云
+      bootstrap-servers: 39.104.186.210:9092  # 阿里云
 
 mybatis:
   configuration:
